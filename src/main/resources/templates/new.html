@@ -1,55 +1,48 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
-
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>New user</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <style type="text/css">
+        .field {clear:both; text-align:right;}
+        label {float:left;}
+        .main {float:left}
+    </style>
 </head>
-
 <body>
-<style type="text/css">
-    * {
-        color: black;
-        margin: 0 auto;
-        padding: 10px;
-        text-align: center;
-        font-size: 20px;
-        font-family: Verdana, Arial, Helvetica, sans-serif;
-    }
 
-    .link {
-        text-decoration: none;
-        box-shadow: 6px 6px 2px 1px black;
-        cursor: pointer;
-    }
-</style>
-<h1> Create new user </h1>
-<form th:method="POST" th:action="@{/admin/user}" th:object="${user}">
-    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+<div class="main">
+    <form th:method="POST" th:action="@{/admin/user}" th:object="${user}">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        <div class="field">
+            <label for="username">Enter username:</label>
+            <input type="text" th:field="*{username}" id="username"/>
+        </div>
+        <br/>
+        <div class="field">
+            <label for="password">Enter password: </label>
+            <input type="text" th:field="*{password}" id="password"/>
+        </div>
+        <div class="form-group row align-items-center mb-3">
+            <label class="col-4 col-form-label text-center">Roles: </label>
+            <div class="col-8">
+                <th:block th:each="role: ${listRoles}">
+                    <input type="checkbox" th:field="*{roles}"
+                           th:text="${role.name}" th:value="${role.id}" class="m-2"/>
+                </th:block>
+            </div>
+        </div>
+        <div class="field">
+            <label for="email">Enter email: </label>
+            <input type="text" th:field="*{email}" id="email"/>
+        </div>
+        <br/>
+        <input type="submit" value="Create!"/>
+    </form>
+</div>
 
-    <p>Enter username:</p>
-    <input type="text" th:field="*{username}" id="username" />
-    <br>
-    <br>
-    <p>Enter password: </p>
-    <input type="text" th:field="*{password}" id="password" />
-    <br>
-    <br>
-    <p>Roles: </p>
-    <th:block th:each="role: ${listRoles}">
-        <input type="checkbox" th:field="*{roles}" th:text="${role.name}" th:value="${role.id}" class="m-2" />
-    </th:block>
-    <br>
-    <br>
-    <p>Enter email: </p>
-    <input type="text" th:field="*{email}" id="email" />
-    <br>
-    <br>
-    <input class="link" type="submit" value="Create" />
-</form>
-<br>
-<a class="link" href="/admin/user"> Admin Panel</a>
-<a class="link" th:href="@{/logout}">Logout</a>
 </body>
-
 </html>

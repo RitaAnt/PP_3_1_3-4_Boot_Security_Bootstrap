@@ -15,17 +15,11 @@ import ru.kata.spring.boot_security.demo.entities.User;
 import ru.kata.spring.boot_security.demo.service.AdminService;
 import ru.kata.spring.boot_security.demo.service.RoleService;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-//    private List<User> Users = Stream.of(
-//            new User(1, "user", "user", "user@gmail.com", "ADMIN")
-//    ).collect(Collectors.toList());
+
     private final AdminService adminService;
     private final RoleService roleService;
 
